@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <title>Analytics Dashboard</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      const { useEffect } = React;
+
+      function Dashboard() {
+        useEffect(() => {
+          const ctx1 = document.getElementById('userEngagement').getContext('2d');
+          const userEngagementChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+              labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+              datasets: [{
+                label: 'User Engagement',
+                data: [65, 59, 80, 81, 56, 55],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+              }]
+            },
+            options: {
+              maintainAspectRatio: false
+            }
+          });
+
+          const ctx2 = document.getElementById('visitors').getContext('2d');
+          const visitorsChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+              labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+              datasets: [{
+                label: 'Visitors',
+                data: [200, 300, 400, 500, 600, 700],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              maintainAspectRatio: false
+            }
+          });
+
+          const ctx3 = document.getElementById('trafficSources').getContext('2d');
+          const trafficSourcesChart = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+              labels: ['Direct', 'Referral', 'Social'],
+              datasets: [{
+                label: 'Traffic Sources',
+                data: [300, 50, 100],
+                backgroundColor: [
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              maintainAspectRatio: false
+            }
+          });
+
+          const ctx4 = document.getElementById('visitDuration').getContext('2d');
+          const visitDurationChart = new Chart(ctx4, {
+            type: 'radar',
+            data: {
+              labels: ['0-1 min', '1-2 min', '2-3 min', '3-4 min', '4-5 min'],
+              datasets: [{
+                label: 'Visit Duration',
+                data: [120, 190, 300, 500, 200],
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              maintainAspectRatio: false
+            }
+          });
+        }, []);
+
+        return (
+          <div className="font-inter bg-gray-100 min-h-screen p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold mb-4">User Engagement</h2>
+                <div className="h-64">
+                  <canvas id="userEngagement"></canvas>
+                </div>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold mb-4">Visitors</h2>
+                <div className="h-64">
+                  <canvas id="visitors"></canvas>
+                </div>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold mb-4">Traffic Sources</h2>
+                <div className="h-64">
+                  <canvas id="trafficSources"></canvas>
+                </div>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h2 className="text-xl font-semibold mb-4">Visit Duration</h2>
+                <div className="h-64">
+                  <canvas id="visitDuration"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      ReactDOM.render(<Dashboard />, document.getElementById('app'));
+    </script>
+  </body>
+</html>
